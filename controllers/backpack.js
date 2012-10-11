@@ -56,7 +56,11 @@ exports.authenticate = function authenticate(request, response) {
     return formatResponse(reverse('backpack.login'), "assertion expected");
   }
 
-  var ident = configuration.get('identity');
+  var ident = {
+    protocol: configuration.get('identity_protocol'),
+    server: configuration.get('identity_server'),
+    path: configuration.get('identity_path')	
+  }
   var uri = ident.protocol + '://' +  ident.server + ident.path;
   var assertion = request.body['assertion'];
   var audience = configuration.get('hostname');

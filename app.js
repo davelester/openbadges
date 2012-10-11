@@ -110,7 +110,7 @@ router(app)
 
 if (!module.parent) {
   var start_server = function start_server(app) {
-    var port = app.config.get('port');
+    var port = process.env.PORT || app.config.get('port');
     var pid = process.pid.toString();
     var pidfile = path.join(app.config.get('var_path'), 'server.pid');
 
