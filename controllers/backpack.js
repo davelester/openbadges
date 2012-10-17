@@ -4,7 +4,6 @@ var qs = require('querystring');
 var fs = require('fs');
 var logger = require('../lib/logging').logger;
 var url = require('url');
-var configuration = require('../lib/configuration');
 var baker = require('../lib/baker');
 var remote = require('../lib/remote');
 var browserid = require('../lib/browserid');
@@ -12,6 +11,8 @@ var awardBadge = require('../lib/award');
 var reverse = require('../lib/router').reverse;
 var Badge = require('../models/badge');
 var Group = require('../models/group');
+var habitat = require('habitat');
+var env = new habitat('openbadges');
 
 /**
  * Render the login page.
@@ -56,14 +57,10 @@ exports.authenticate = function authenticate(request, response) {
     return formatResponse(reverse('backpack.login'), "assertion expected");
   }
 
-  var ident = {
-    protocol: configuration.get('identity_protocol'),
-    server: configuration.get('identity_server'),
-    path: configuration.get('identity_path')	
-  }
+  var ident = env.get('identity');
   var uri = ident.protocol + '://' +  ident.server + ident.path;
   var assertion = request.body['assertion'];
-  var audience = configuration.get('hostname');
+  var audience = env.get('hostname');
 
   browserid.verify(uri, assertion, audience, function (err, verifierResponse) {
     if (err) {
@@ -100,10 +97,10 @@ exports.signout = function signout(request, response) {
 
 exports.stats = function stats(request, response, next) {
   var user = request.user;
-  var adminUsers = configuration.get('admins');
+  var adminUsers = env.get('admins');
 
   // access control: foremost we need a logged in user. next we ensure
-  // `admins` is defined in the environment config and once we have that
+  // `admins` is defined as an environment var and once we have that
   // we make sure the current user is in that list. for posterity, we
   // log everytime a user accesses the stats page.
   if (!user)
