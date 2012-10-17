@@ -8,6 +8,8 @@ var configuration = require('./lib/configuration');
 var router = require('./lib/router');
 var hogan = require('hogan.js');
 var hoganadapter = require('./lib/hogan-express.js');
+var habitat = require('habitat');
+var env = new habitat('openbadges');
 
 var app = express.createServer();
 app.logger = logger;
@@ -37,9 +39,9 @@ app.dynamicHelpers({
 
 // Middleware. See `middleware.js`
 app.use(express.static(path.join(__dirname, "static")));
-app.use(express.static(path.join(configuration.get('var_dir'), "badges")));
+app.use(express.static(path.join(app.config.var_path, "badges")));
 app.use(middleware.noFrame({ whitelist: [ '/issuer/frame.*', '/', '/share/.*' ] }));
-app.use(express.bodyParser({ uploadDir: configuration.get('badge_path') }));
+app.use(express.bodyParser({ uploadDir: app.config.badge_path }));
 app.use(express.cookieParser());
 app.use(express.methodOverride());
 app.use(middleware.logRequests());
@@ -112,7 +114,7 @@ if (!module.parent) {
   var start_server = function start_server(app) {
     var port = process.env.PORT || app.config.get('port');
     var pid = process.pid.toString();
-    var pidfile = path.join(app.config.get('var_path'), 'server.pid');
+    var pidfile = path.join(app.config.var_path, 'server.pid');
 
     app.listen(port);
     app.logger.info('environment: ' + process.env['NODE_ENV']);

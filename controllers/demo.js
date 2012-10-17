@@ -2,15 +2,17 @@
 var qs = require('querystring');
 var fs = require('fs');
 var path = require('path');
-var configuration = require('../lib/configuration');
 var request = require('request');
 var awardBadge = require('../lib/award');
 var logger = require('../lib/logging').logger;
 var reverse = require('../lib/router').reverse;
 
-var protocol = configuration.get('protocol') || 'http';
-var port = configuration.get('port') || '';
-var ORIGIN = protocol + '://' + configuration.get('hostname') + (port ? ':' + port : '');
+var habitat = require('habitat');
+var env = new habitat('openbadges');
+
+var protocol = env.get('protocol') || 'http';
+var port = env.get('port') || '';
+var ORIGIN = protocol + '://' + env.get('hostname') + (port ? ':' + port : '');
 
 // Render the view for the demo badge issuer.
 exports.issuer = function (req, res) {

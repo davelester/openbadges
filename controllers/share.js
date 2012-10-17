@@ -5,8 +5,9 @@ var Badge = require('../models/badge');
 var Portfolio = require('../models/portfolio');
 var Group = require('../models/group');
 var reverse = require('../lib/router').reverse;
-var configuration = require('../lib/configuration');
 var logger = require('../lib/logging').logger;
+var habitat = require('habitat');
+var env = new habitat('openbadges');
 
 exports.param = {
   groupUrl: function (request, response, next, url) {
@@ -86,10 +87,10 @@ function prepareText(txt) {
   return better;
 }
 
-function makeLinkUrl(path, configuration) {
-  var protocol = configuration.get('protocol');
-  var host = configuration.get('hostname');
-  var port = configuration.get('port');
+function makeLinkUrl(path) {
+  var protocol = env.get('protocol');
+  var host = env.get('hostname');
+  var port = env.get('port');
   return url.format({protocol: protocol, hostname: host, port: port, pathname: path });
 }
 
@@ -132,7 +133,7 @@ exports.show = function (request, response, next) {
       opengraph: [
         { property: 'title', content: portfolio.attributes.title },
         { property: 'type', content: 'openbadges:share' },
-        { property: 'url', content: makeLinkUrl(request.url, configuration) }
+        { property: 'url', content: makeLinkUrl(request.url) }
       ],
       portfolio: portfolio,
       message: message || null,

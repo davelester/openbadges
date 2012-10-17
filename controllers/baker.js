@@ -6,7 +6,6 @@ var path = require('path');
 
 // local requirements
 var logger = require('../lib/logging').logger;
-var configuration = require('../lib/configuration');
 var badgeBaker = require('../lib/baker');
 var remote = require('../lib/remote');
 var awardBadge = require('../lib/award');

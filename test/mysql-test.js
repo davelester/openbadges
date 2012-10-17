@@ -2,7 +2,7 @@ var vows = require('vows')
   , assert = require('assert')
   , mysql = require('../lib/mysql')
   , client = mysql.client
-  , conf = require('../lib/configuration').get('database')
+  , conf = env.get('database')
   , testDb = 'test_' + conf.database; 
 
 Object.values = function (obj) { return Object.keys(obj).map(function (k) { return obj[k]; }) };

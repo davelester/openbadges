@@ -7,7 +7,7 @@ var vows = require('vows')
   , assertion = require('../lib/utils').fixture()
   , Badge = require('../models/badge')
   , configuration = require('../lib/configuration')
-  , badgeDir = configuration.get('badge_path')
+  , badgeDir = configuration.badge_path)
 
 var PNGFILE = path.join(__dirname, '/utils/images/no-badge-data.png')
   , PNGDATA = fs.readFileSync(PNGFILE)

@@ -2,8 +2,9 @@ var _ = require('underscore');
 var Group = require('../models/group.js');
 var Badge = require('../models/badge.js');
 var User = require('../models/user.js');
-var conf = require('../lib/configuration');
 var logger = require('../lib/logging').logger;
+var habitat = require('habitat');
+var env = new habitat('openbadges');
 
 // Helpers
 // -------
@@ -50,9 +51,9 @@ function formatResponse(data, request, response) {
 
 function fullUrl(pathname) {
   return require('url').format({
-    protocol: conf.get('protocol'),
-    hostname: conf.get('hostname'),
-    port: conf.get('port'),
+    protocol: env.get('protocol'),
+    hostname: env.get('hostname'),
+    port: env.get('port'),
     pathname: pathname
   });
 }

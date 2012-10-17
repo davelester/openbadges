@@ -5,11 +5,13 @@ var configuration = require('./lib/configuration');
 var logger = require('./lib/logging').logger;
 var crypto = require('crypto');
 var User = require('./models/user');
+var habitat = require('habitat');
+var env = new habitat('openbadges');
     
 // `COOKIE_SECRET` is randomly generated on the first run of the server,
 // then stored to a file and looked up on restart to maintain state.
 // See the `secrets.js` for more information.
-var COOKIE_SECRET = secrets.hydrateSecret('openbadges_cookie', configuration.get('var_path'));
+var COOKIE_SECRET = secrets.hydrateSecret('openbadges_cookie', configuration.var_path);
 var COOKIE_KEY = 'openbadges_state';
 
 // Store sessions in cookies. The session structure is base64 encoded, a
@@ -21,7 +23,7 @@ exports.cookieSessions = function cookieSessions() {
     cookie: {
       httpOnly: true,
       maxAge: (7 * 24 * 60 * 60 * 1000), //one week
-      secure: (configuration.get('protocol') === 'https')
+      secure: (env.get('protocol') === 'https')
     }
   });
 };
