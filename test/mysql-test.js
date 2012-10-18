@@ -1,9 +1,10 @@
+var habitat = require('habitat');
+var env = new habitat('openbadges');
 var vows = require('vows')
   , assert = require('assert')
   , mysql = require('../lib/mysql')
   , client = mysql.client
-  , conf = env.get('database')
-  , testDb = 'test_' + conf.database; 
+  , testDb = 'test_' + env.get('database'); 
 
 Object.values = function (obj) { return Object.keys(obj).map(function (k) { return obj[k]; }) };
 var extractFirstValues = function (arr) { return arr.map(function (a) { return Object.values(a).pop(); }) }
