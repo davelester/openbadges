@@ -1,0 +1,12 @@
+export NODE_ENV=production
+export OPENBADGES_PROTOCOL=http
+export OPENBADGES_IDENTITY_PROTOCOL=https
+export OPENBADGES_IDENTITY_SERVER=verifier.login.persona.org
+export OPENBADGES_IDENTITY_PATH=/verify
+export OPENBADGES_HOSTNAME=localhost
+export OPENBADGES_ADMINS=[example@example.com]
+export OPENBADGES_DB_DRIVER=mysql
+export OPENBADGES_DB_HOST=127.0.0.1
+export OPENBADGES_DB_USER=badgemaker
+export OPENBADGES_DB_PASSWORD=secret
+export OPENBADGES_DB_DATABASE=openbadges
