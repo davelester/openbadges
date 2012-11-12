@@ -143,7 +143,7 @@
           {{#body}}
           <tr>
             <td class='fieldlabel issuer-name'>Name</td>
-            <td>{{badge.issuer.name}}</td>
+            <td><a href='/badge/{{id}}'>{{badge.issuer.name}}</a></td>
           </tr>
           <tr>
             <td class='fieldlabel issuer-name'>URL</td>

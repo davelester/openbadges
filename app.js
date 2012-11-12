@@ -68,6 +68,8 @@ app.configure('production', function () {
 router(app)
   .get('/baker',                      'baker.baker')
   .delete('/badge/:badgeId',          'badge.destroy')
+  .get('/badge/:badgeId',             'badge.show')
+  .get('/badge/:badgeId/edit',        'badge.edit')
   .get('/issuer.js',                  'issuer.generateScript')
   .get('/issuer/frame',               'issuer.frame')
   .post('/issuer/frameless',          'issuer.frameless')
@@ -112,7 +114,7 @@ router(app)
 
 if (!module.parent) {
   var start_server = function start_server(app) {
-    var port = process.env.PORT || app.config.get('port');
+    var port = process.env.PORT || 3333;
     var pid = process.pid.toString();
     var pidfile = path.join(app.config.var_path, 'server.pid');
 

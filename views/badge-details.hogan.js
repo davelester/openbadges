@@ -1,43 +1,39 @@
-<h1>{{type.name}}</h1>
+<h1>{{badge.name}}</h1>
 <div class="row">
-  <div class="span4 columns badge-details">
-    <img id="badge-image" src="{{image}}" alt="Badge Image"/>
+	<div class="span16 columns badge-image">
+		<img id="badge-image" src="{{attributes.image_path}}" alt="Badge Image"/>
+	</div>
+  <div class="span6 columns badge-details">
     <dl>
       <dt>Recipient</dt>
-      <dd>{{recipient}}</dd>
+      <dd>{{assertion.recipient}}</dd>
 
       <dt>Name</dt>
-      <dd>{{type.name}}</dd>
+      <dd>{{badge.name}}</dd>
 
       <dt>Description</dt>
-      <dd>{{type.description}}</dd>
+      <dd>{{badge.description}}</dd>
 
       <dt>Criteria</dt>
-      <dd><a href="{{type.criteria}}">{{type.criteria}}</a></dd>
+      <dd><a href="{{badge.criteria}}">{{badge.criteria}}</a></dd>
 
       <dt>Issuer</dt>
-      <dd>{{type.issuer.name}} (<a href="{{type.issuer.origin}}">{{type.issuer.origin}}</a>)</dd>
+      <dd>{{issuer.name}} (<a href="{{issuer.origin}}">{{issuer.origin}}</a>)</dd>
 
       {{#type.issuer.org}}
       <dt>Organization</dt>
       <dd> {{type.issuer.org}} </dd>
       {{/type.issuer.org}}
     </dl>
-  </div>
 
-  {{#owner}}
-  <div class="span8 columns management">
-
-    <div class="accept-reject">
-      <h2>Keep this badge?</h2>
-      <form action="{{ deleteRoute }}" method="post" style="display: inline">
-        <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
-        <input type="hidden" name="_method" value="delete"></input>
-        <input class="btn btn-danger" type="submit" value="No, delete this badge."></input>
-      </form>
-    </div>
+		{{#owner}}
+		  <form action="{{ deleteRoute }}" method="post" style="display: inline">
+		    <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
+		    <input type="hidden" name="_method" value="delete"></input>
+		    <input class="btn btn-danger" type="submit" value="Delete this badge."></input>
+		  </form>
+	  {{/owner}}
   </div>
-  {{/owner}}
 </div>
 
 <script type="text/javascript">
