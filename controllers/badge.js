@@ -41,7 +41,7 @@ function showPage(request, response, opts) {
 			{ property: 'title', content: opts.badge.attributes.body.badge.name },
 			{ property: 'url', content: 'http://openbadgesfb.herokuapp.com' + request.url },
 			{ property: 'image', content: opts.badge.attributes.image_path },
-			{ property: 'description', content: 'sample description here' }
+			{ property: 'description', content: opts.badge.attributes.body.badge.description }
 		],
 		fb: [
 			{ property: 'app_id', content: '268806889891263' }
