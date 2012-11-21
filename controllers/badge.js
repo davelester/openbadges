@@ -40,7 +40,7 @@ function showPage(request, response, opts) {
 			{ property: 'type', content: 'open-badges:badge' },
 			{ property: 'title', content: opts.badge.attributes.body.badge.name },
 			{ property: 'url', content: 'http://openbadgesfb.herokuapp.com' + request.url },
-			{ property: 'image', content: opts.badge.attributes.image_path },
+			{ property: 'image', content: 'http://openbadgesfb.herokuapp.com' + opts.badge.attributes.image_path },
 			{ property: 'description', content: opts.badge.attributes.body.badge.description }
 		],
 		fb: [
