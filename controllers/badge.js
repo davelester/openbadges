@@ -28,14 +28,24 @@ exports.param['badgeId'] = function (request, response, next, id) {
  * Right now we just chuck the badge in there; in the future we
  * should normalize the data here for presentation.
  */
-function showPage(response, opts) {
+function showPage(request, response, opts) {
   response.render('badge-details', {
     attributes: opts.badge.attributes,
     assertion: opts.badge.attributes.body,
     badge: opts.badge.attributes.body.badge,
     issuer: opts.badge.attributes.body.badge.issuer,
     owner: opts.owner,
-    editing: opts.editing
+    editing: opts.editing,
+		og: [
+			{ property: 'type', content: 'open-badges:badge' },
+			{ property: 'title', content: opts.badge.attributes.body.badge.name },
+			{ property: 'url', content: request.url },
+			{ property: 'image', content: 'https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png' },
+			{ property: 'description', content: 'sample description here' }
+		],
+		fb: [
+			{ property: 'app_id', content: '268806889891263' }
+		]
   });
 }
 
@@ -46,7 +56,7 @@ function showPage(response, opts) {
  */
 exports.show = function show(request, response) {
   var owner = request.user && request.badge.get('user_id') === request.user.get('id');
-  showPage(response, {
+  showPage(request, response, {
     badge: request.badge,
     owner: owner,
     editing: false

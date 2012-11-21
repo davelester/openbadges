@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# open-badges: http://ogp.me/ns/fb/open-badges#">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{#opengraph}}
+		{{#fb}}
+			<meta property="fb:{{property}}" content="{{content}}" />
+		{{/fb}}
+    {{#og}}
       <meta property="og:{{property}}" content="{{content}}" />
-    {{/opengraph}}
+    {{/og}}
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="/css/socialshare.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="/css/bootstrap-2.0.2.min.css" />
@@ -19,6 +22,7 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
   </head>
   <body>
+		<div id="fb-root"></div>
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container" style="position: relative;">
@@ -87,6 +91,6 @@
       <!-- my libraries -->
       <script type="text/javascript" src="/js/jquery.sync.js"></script>
       <script type="text/javascript" src="/js/backpack.js"></script>
-
+			<script type="text/javascript" src="/js/socialshare.js"></script>
   </body>
 </html>

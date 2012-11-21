@@ -26,6 +26,9 @@
       {{/type.issuer.org}}
     </dl>
 
+		<h3>Share these Badges:</h3>
+		<p><a href="#" class="share-badge">Share on Facebook</a></p>
+
 		{{#owner}}
 		  <form action="{{ deleteRoute }}" method="post" style="display: inline">
 		    <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
