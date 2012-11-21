@@ -111,7 +111,7 @@
     })
 })(window.jQuery);
 
-$('.share-badge').click(function() {
+$('.share-badge-on-fb').click(function() {
 	var badge_url = document.URL;
 	console.log(badge_url);
 	
@@ -136,6 +136,18 @@ window.fbAsyncInit = function() {
 		cookie     : true,
 		xfbml      : true 
 	});
+	
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    var uid = response.authResponse.userID;
+	    var accessToken = response.authResponse.accessToken;
+			console.log('logged in!');
+	  } else if (response.status === 'not_authorized') {
+			console.log('not logged in!');
+	  } else {
+			console.log('not logged in 2!');
+	  }
+	}, true);
 };
 
 // Load the SDK Asynchronously

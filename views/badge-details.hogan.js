@@ -27,7 +27,8 @@
     </dl>
 
 		<h3>Share these Badges:</h3>
-		<p><a href="#" class="share-badge">Share on Facebook</a></p>
+		<div class="share-badge"></div>
+		<p><a href="#" class="share-badge-on-fb">Share on Facebook</a></p>
 
 		{{#owner}}
 		  <form action="{{ deleteRoute }}" method="post" style="display: inline">
