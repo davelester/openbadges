@@ -141,11 +141,9 @@ window.fbAsyncInit = function() {
 	  if (response.status === 'connected') {
 	    var uid = response.authResponse.userID;
 	    var accessToken = response.authResponse.accessToken;
-			$('.share-badge').append('<p><a href="#" class="share-badge-on-fb">Share on Facebook</a></p>');
+			$('.share-badge').replaceWith('<p><a href="#" class="share-badge-on-fb">Share on Facebook</a></p>');
 	  } else if (response.status === 'not_authorized') {
-			$('<div class="fb-login-button"></div>').appendTo('.share-badge');
 	  } else {
-			$('<div class="fb-login-button"></div>').appendTo('.share-badge');
 	  }
 	}, true);
 };
