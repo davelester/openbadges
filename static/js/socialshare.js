@@ -141,11 +141,11 @@ window.fbAsyncInit = function() {
 	  if (response.status === 'connected') {
 	    var uid = response.authResponse.userID;
 	    var accessToken = response.authResponse.accessToken;
-			console.log('logged in!');
+			$('.share-badge').append('<p><a href="#" class="share-badge-on-fb">Share on Facebook</a></p>');
 	  } else if (response.status === 'not_authorized') {
-			console.log('not logged in!');
+			$('.share-badge').append('<fb:login-button>');
 	  } else {
-			console.log('not logged in 2!');
+			$('.share-badge').append('<fb:login-button>');
 	  }
 	}, true);
 };
