@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
     <title dir="ltr">Open Badge Backpack</title>
 
-    <script type="text/javascript" src="/js/modernizr.js"></script>
     <script type="text/javascript" src="https://login.persona.org/include.js"></script>
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-  </head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/modernizr.js"></script>
+</head>
   <body>
 		<div id="fb-root"></div>
     <div class="navbar">

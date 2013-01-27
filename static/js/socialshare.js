@@ -111,7 +111,7 @@
     })
 })(window.jQuery);
 
-$('.share-badge-on-fb').click(function() {
+$('body').on('click',  'a.share-badge-on-fb', function() {
 	var badge_url = document.URL;
 	console.log(badge_url);
 	
