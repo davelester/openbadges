@@ -365,7 +365,7 @@ Details.View = Backbone.View.extend({
 				  }
 				}, {scope: 'publish_actions'});
 		  }
-		}, true);	
+		}, true);
   },
 
   hideFacebookModal: function () {
