@@ -329,7 +329,7 @@ Details.View = Backbone.View.extend({
     'click .disown': 'showConfirmation',
     'click .confirm-disown .nope': 'hideConfirmation',
     'click .confirm-disown .yep': 'destroyBadge',
-    'click .facebook-share': 'showFacebookModal',
+    'click p.facebook-share': 'showFacebookModal',
     'click .confirm-facebook-share .nope': 'hideFacebookModal'
   },
 
@@ -346,7 +346,35 @@ Details.View = Backbone.View.extend({
   },
 
   showFacebookModal: function () {
-	  this.$el.find('.confirm-facebook-share').fadeIn('fast');
+	  // Note: I hardcoded the Facebook SDK into the layout for now -- remove or hotLoad later
+		
+		var modal = this;
+		
+	  // check if a user is logged in to Facebook
+	  FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+		    var uid = response.authResponse.userID;
+		    var accessToken = response.authResponse.accessToken;
+        // alert("You're logged in! w00t! " + accessToken);
+
+			  modal.$el.find('.confirm-facebook-share').fadeIn('fast');
+			  // do some magic to append the user's auth token to the form
+			  $('form.facebook-share').prepend('<input type="hidden" name="access_token" value="'+response.authResponse.accessToken+'">');
+			
+		  } else if (response.status === 'not_authorized') {
+			  // flash a message to say that the user hasn't authorized the app to post things
+		  } else {
+			  // prompt a user to login now..
+			  alert("time to log in, n00b");
+			  FB.login(function(response) {
+				  if (response.status === 'connected') {
+					  // flash some fancy message that the user has no connected with Facebook
+				  } else if (response.status === 'not_connected') {
+					  // was unable to log in to Facebook
+				  }
+				});
+		  }
+		}, true);	
   },
 
   hideFacebookModal: function () {

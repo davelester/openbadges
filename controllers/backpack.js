@@ -13,6 +13,7 @@ var Badge = require('../models/badge');
 var Group = require('../models/group');
 var User = require('../models/user');
 var async = require('async');
+var fb = require('../lib/facebook');
 
 /**
  * Render the login page.
@@ -406,6 +407,24 @@ exports.userBadgeUpload = function userBadgeUpload(request, response) {
     });
   });
 };
+
+exports.facebookSharing = function (request, response, callback) {
+	console.log('made it to sharing..');
+	var access_token = request.access_token;
+	var badge_id = request.badge_id;
+	var user_id = 'me';
+	var comment = request.comment;
+	
+	  fb.publishBadge(access_token, badge_id, user_id, function(error, response) {
+	  	if (error) {
+	  		console.log('error: ' + error);
+	   	} else {
+			  console.log('we published a badge! we rock!');
+			  console.log(response);
+			  fb.publishComment(response.id, access_token, comment, function(error, response) {});
+	    }
+  	});
+}
 
 /**
  * Stub methods to prevent crash in Express 3.0.5

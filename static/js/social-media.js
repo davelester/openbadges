@@ -55,3 +55,39 @@ var SocialMedia = function() {};
     }
   };
 }());
+
+$('.confirm-facebook-share').on('click', 'button.yep', function() {
+	// var badge_url = document.URL;
+  var badge_url = 'http://openbadgesfb.herokuapp.com/badge/11';
+	console.log(badge_url);
+
+	FB.api(
+		'/me/open-badges:award',
+		'post',
+	{ badge: badge_url },
+	function(response) {
+		if (!response || response.error) {
+			console.log(response.error);
+			alert('An error occurred.');
+		} else {
+			alert('Your badge was shared! You are awesome!! Action ID: ' + response.id);
+		}
+	});
+});
+
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '268806889891263',
+		status     : true,
+		cookie     : true,
+		xfbml      : true 
+	});
+};
+
+// Load the SDK Asynchronously
+(function(d){
+	var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+	js = d.createElement('script'); js.id = id; js.async = true;
+	js.src = "//connect.facebook.net/en_US/all.js";
+	d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
