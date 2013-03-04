@@ -55,3 +55,20 @@ var SocialMedia = function() {};
     }
   };
 }());
+
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '268806889891263',
+		status     : true,
+		cookie     : true,
+		xfbml      : true 
+	});
+};
+
+// Load the SDK Asynchronously
+(function(d){
+	var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+	js = d.createElement('script'); js.id = id; js.async = true;
+	js.src = "//connect.facebook.net/en_US/all.js";
+	d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
