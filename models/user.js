@@ -70,4 +70,14 @@ User.totalCount = function (callback) {
   })
 }
 
+User.ifExtendedAccessTokenExists = function(user_id, callback) {
+	User.findById(user_id, function(error, response) {
+		if (response.fb_access_token.length) {
+		  return response.fb_access_token;
+		} else {
+			return false;
+		}
+	});
+}
+
 module.exports = User;

@@ -140,6 +140,8 @@ function badgePage (request, response, badges, template) {
     var criteria = body.badge.criteria;
     var evidence = body.evidence;
 
+    console.log(badge);
+
     if (criteria[0] === '/') body.badge.criteria = origin + criteria;
     if (evidence && evidence[0] === '/') body.evidence = origin + evidence;
     // Nobody wants to see the hash in the UI, apparently.
@@ -409,21 +411,40 @@ exports.userBadgeUpload = function userBadgeUpload(request, response) {
 };
 
 exports.facebookSharing = function (request, response, callback) {
-	console.log('made it to sharing..');
-	var access_token = request.access_token;
-	var badge_id = request.badge_id;
+  var access_token = request.body.access_token;
+	var badge_body_hash = request.body.badge_body_hash;
 	var user_id = 'me';
-	var comment = request.comment;
-	
-	  fb.publishBadge(access_token, badge_id, user_id, function(error, response) {
-	  	if (error) {
-	  		console.log('error: ' + error);
-	   	} else {
-			  console.log('we published a badge! we rock!');
-			  console.log(response);
-			  fb.publishComment(response.id, access_token, comment, function(error, response) {});
-	    }
-  	});
+	var comment = request.body.facebookcomment;
+	var fb_automatic_push = request.body.facebook_automatic_push;
+	var user = request.user;
+
+  fb.publishBadge(access_token, badge_body_hash, user_id, function(error, response) {
+  	if (error) {
+  		console.log('error: ' + error);
+   	} else {
+		  request.flash('success', 'Your badge was successfully shared on Facebook');
+
+	    // if a comment was posted, submit the comment
+      if (comment) {
+			  fb.publishComment(response.id, access_token, comment, function(error, response) {
+			    if (error) {
+		        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
+    	    }
+			  });
+      }
+
+      // if FB automatic push was checked:
+      if (fb_automatic_push) {
+	      // Extend user's token
+	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, access_token, function(error, response) {
+		      // And save the extended token to the database
+				  // User.set('fb_access_token', user.get('id'));
+	      });
+      }
+    }
+  });
+
+  response.redirect('/share/badge/'+badge_body_hash, 303);
 }
 
 /**

@@ -56,25 +56,6 @@ var SocialMedia = function() {};
   };
 }());
 
-$('.confirm-facebook-share').on('click', 'button.yep', function() {
-	// var badge_url = document.URL;
-  var badge_url = 'http://openbadgesfb.herokuapp.com/badge/11';
-	console.log(badge_url);
-
-	FB.api(
-		'/me/open-badges:award',
-		'post',
-	{ badge: badge_url },
-	function(response) {
-		if (!response || response.error) {
-			console.log(response.error);
-			alert('An error occurred.');
-		} else {
-			alert('Your badge was shared! You are awesome!! Action ID: ' + response.id);
-		}
-	});
-});
-
 window.fbAsyncInit = function() {
 	FB.init({
 		appId      : '268806889891263',

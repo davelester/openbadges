@@ -355,7 +355,6 @@ Details.View = Backbone.View.extend({
 		  if (response.status === 'connected') {
 		    var uid = response.authResponse.userID;
 		    var accessToken = response.authResponse.accessToken;
-        // alert("You're logged in! w00t! " + accessToken);
 
 			  modal.$el.find('.confirm-facebook-share').fadeIn('fast');
 			  // do some magic to append the user's auth token to the form
@@ -372,7 +371,7 @@ Details.View = Backbone.View.extend({
 				  } else if (response.status === 'not_connected') {
 					  // was unable to log in to Facebook
 				  }
-				});
+				}, {scope: 'publish_actions'});
 		  }
 		}, true);	
   },
