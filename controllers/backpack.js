@@ -697,6 +697,43 @@ exports.facebookSharing = function (request, response, callback) {
   response.redirect('/share/badge/'+badgeBodyHash, 303);
 }
 
+exports.facebookSharing = function (request, response, callback) {
+  var access_token = request.body.access_token;
+	var badge_body_hash = request.body.badge_body_hash;
+	var user_id = 'me';
+	var comment = request.body.facebookcomment;
+	var fb_automatic_push = request.body.facebook_automatic_push;
+	var user = request.user;
+
+  fb.publishBadge(access_token, badge_body_hash, user_id, function(error, response) {
+  	if (error) {
+      request.flash('error', 'There was an error sharing your badge on Facebook.');
+   	} else {
+		  request.flash('success', 'Your badge was successfully shared on Facebook');
+
+	    // if a comment was posted, submit the comment
+      if (comment) {
+			  fb.publishComment(response.id, access_token, comment, function(error, response) {
+			    if (error) {
+		        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
+    	    }
+			  });
+      }
+
+      // if FB automatic push was checked:
+      if (fb_automatic_push) {
+	      // Extend user's token
+	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, access_token, function(error, response) {
+		      // And save the extended token to the database
+				  // User.set('fb_access_token', user.get('id'));
+	      });
+      }
+    }
+  });
+
+  response.redirect('/share/badge/'+badge_body_hash, 303);
+}
+
 /**
  * Stub methods to prevent crash in Express 3.0.5
  */
