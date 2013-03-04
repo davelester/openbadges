@@ -329,7 +329,7 @@ Details.View = Backbone.View.extend({
     'click .disown': 'showConfirmation',
     'click .confirm-disown .nope': 'hideConfirmation',
     'click .confirm-disown .yep': 'destroyBadge',
-    'click .facebook-share': 'showFacebookModal',
+    'click p.facebook-share': 'showFacebookModal',
     'click .confirm-facebook-share .nope': 'hideFacebookModal'
   },
 
@@ -346,7 +346,29 @@ Details.View = Backbone.View.extend({
   },
 
   showFacebookModal: function () {
-	  this.$el.find('.confirm-facebook-share').fadeIn('fast');
+    var modal = this;
+
+    // check if a user is logged in to Facebook
+    FB.getLoginStatus(function(response) {
+		  if (response.status === 'connected') {
+		    var uid = response.authResponse.userID;
+		    var accessToken = response.authResponse.accessToken;
+
+			  modal.$el.find('.confirm-facebook-share').fadeIn('fast');
+			  // do some magic to append the user's auth token to the form
+			  $('form.facebook-share').prepend('<input type="hidden" name="access_token" value="'+response.authResponse.accessToken+'">');
+			
+		  } else if (response.status === 'not_authorized') {
+        request.flash('error', 'You have not authorized Open Badges to have access to publish to your Facebook wall.');
+		  } else {
+			  // prompt a user to login
+			  FB.login(function(response) {
+				  if (response.status === 'not_connected') {
+			      request.flash('error', 'Your login failed, and unsuccessfully connected your Open Badges account to Facebook.');
+				  }
+				}, {scope: 'publish_actions'});
+		  }
+		}, true);	
   },
 
   hideFacebookModal: function () {
