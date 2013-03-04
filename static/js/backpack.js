@@ -329,7 +329,7 @@ Details.View = Backbone.View.extend({
     'click .disown': 'showConfirmation',
     'click .confirm-disown .nope': 'hideConfirmation',
     'click .confirm-disown .yep': 'destroyBadge',
-    'click .facebook-share': 'showFacebookModal',
+    'click p.facebook-share': 'showFacebookModal',
     'click .confirm-facebook-share .nope': 'hideFacebookModal'
   },
 
