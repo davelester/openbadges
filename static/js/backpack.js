@@ -357,10 +357,7 @@ Details.View = Backbone.View.extend({
 			  modal.$el.find('.confirm-facebook-share').fadeIn('fast');
 			  // do some magic to append the user's auth token to the form
 			  $('form.facebook-share').prepend('<input type="hidden" name="access_token" value="'+response.authResponse.accessToken+'">');
-			
-		  } else if (response.status === 'not_authorized') {
-        request.flash('error', 'You have not authorized Open Badges to have access to publish to your Facebook wall.');
-		  } else {
+			} else {
 			  // prompt a user to login
 			  FB.login(function(response) {
 				  if (response.status === 'not_connected') {
