@@ -13,7 +13,7 @@
       <td>
         <form action="/backpack/facebook" method="POST" class="facebook-share">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
-        <input type="hidden" name="badge_body_hash" value="{{badge.attributes.body_hash}}"></input>
+        <input type="hidden" name="badgeBodyHash" value="{{badge.attributes.body_hash}}"></input>
         <strong>{{badge.attributes.body.badge.issuer.name}}</strong>
         <p>{{badge.attributes.body.badge.description|escape}}</p>
         <textarea name='facebookcomment' tabindex=1 class='comment' placeholder='Add your personal comment'></textarea>
