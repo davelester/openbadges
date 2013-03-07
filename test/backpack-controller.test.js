@@ -148,6 +148,24 @@ $.prepareDatabase({
 
     $.finish(test);
   });
+
+test('backpack#facebookSharing', function (t) {
+  conmock({
+	  handler: backpack.facebookSharing,
+	  request: {
+		  body: {
+			  accessToken: 'aaBBccDDeFgHiJkLMnOP',
+	      badgeBodyHash: 'sillybadgehash',
+	      userId: 'me',
+	      comment: 'Commenting on my badge so others know how awesome I am!',
+	      fbAutomaticPush: 'checked'
+		  }
+		}
+  }, function (err, mock, req) {
+    if (err) throw err;
+    t.equal(mock.status, 303);
+    t.end();
+	});
 });
 
 test('backpack#facebookSharing', function (t) {
