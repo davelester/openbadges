@@ -83,8 +83,16 @@ $.prepareDatabase({
   });
 
 
+<<<<<<< HEAD
   test('backpack#manage', function (t) {
     // #TODO: re-write after making backpack.manage sane.
+=======
+<<<<<<< HEAD
+test('backpack#settings redirects to login if no user', function (t) {
+  conmock({handler: backpack.settings()}, function(err, mock) {
+    t.same(mock.status, 303);
+    t.same(mock.path, "/backpack/login");
+>>>>>>> Initial addition of facebookSharing to the backpack controller tests.
     t.end();
   });
 
