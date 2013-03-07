@@ -593,7 +593,7 @@ exports.facebookSharing = function (request, response, callback) {
 	var fb_automatic_push = request.body.facebook_automatic_push;
 	var user = request.user;
 
-  fb.publishBadge(access_token, badge_body_hash, user_id, function(error, response) {
+  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
   	if (error) {
       request.flash('error', 'There was an error sharing your badge on Facebook.');
    	} else {
@@ -609,7 +609,7 @@ exports.facebookSharing = function (request, response, callback) {
       }
 
       // if FB automatic push was checked:
-      if (fb_automatic_push) {
+      if (fbAutomaticPush) {
 	      // Extend user's token
 	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, access_token, function(error, response) {
 		      // And save the extended token to the database
@@ -619,7 +619,7 @@ exports.facebookSharing = function (request, response, callback) {
     }
   });
 
-  response.redirect('/share/badge/'+badge_body_hash, 303);
+  response.redirect('/share/badge/'+badgeBodyHash, 303);
 }
 
 /**
