@@ -88,7 +88,6 @@ $.prepareDatabase({
     t.end();
   });
 
-
   test('backpack#settings redirects to login if no user', function (t) {
     conmock({handler: backpack.settings()}, function(err, mock) {
       t.same(mock.status, 303);
