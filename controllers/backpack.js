@@ -471,7 +471,6 @@ exports.facebookSharing = function (request, response, callback) {
 	var user = request.user;
 
   fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
-
   	if (error) {
       request.flash('error', 'There was an error sharing your badge on Facebook.');
    	} else {
