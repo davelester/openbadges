@@ -27,6 +27,11 @@ Badge.prototype.presave = function () {
   }
 };
 
+Badge.prototype.getImageUrl = function () {
+  // #TODO: probably shouldn't hardcode prefix
+  return utils.fullUrl('/images/badge/' + this.get('body_hash') + '.png');
+};
+
 Badge.confirmRecipient = function confirmRecipient(assertion, email) {
   // can't validate if not given an assertion
   if (!assertion)
