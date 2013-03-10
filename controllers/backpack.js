@@ -447,9 +447,10 @@ exports.facebookSharing = function (request, response, callback) {
       // if FB automatic push was checked:
       if (fbAutomaticPush) {
 	      // Extend user's token
-	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, access_token, function(error, response) {
+	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, accessToken, function(error, response) {
 		      // And save the extended token to the database
-				  // User.set('fb_access_token', user.get('id'));
+				  user.set('fb_access_token', response);
+				  user.save();
 	      });
       }
     }
