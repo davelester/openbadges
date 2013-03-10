@@ -534,6 +534,11 @@ exports.facebookSharing = function (request, response, callback) {
 }
 
 exports.facebookSharing = function (request, response, callback) {
+  // check that Facebook app has been configured
+  if (configuration.get('facebook').activated == false) {
+    request.flash('error', 'Your backpack has not been configured to activate Facebook sharing.');
+  }
+
   var accessToken = request.body.accessToken;
 	var badgeBodyHash = request.body.badgeBodyHash;
 	var userId = 'me';
