@@ -430,7 +430,7 @@ exports.facebookSharing = function (request, response, callback) {
 
 	    // if a comment was posted, submit the comment
       if (comment) {
-			  fb.publishComment(response.id, access_token, comment, function(error, response) {
+			  fb.publishComment(response, accessToken, comment, function(error, response) {
 			    if (error) {
 		        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
     	    }

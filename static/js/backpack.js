@@ -356,7 +356,7 @@ Details.View = Backbone.View.extend({
 
 			  modal.$el.find('.confirm-facebook-share').fadeIn('fast');
 			  // do some magic to append the user's auth token to the form
-			  $('form.facebook-share').prepend('<input type="hidden" name="access_token" value="'+response.authResponse.accessToken+'">');
+			  $('form.facebook-share').prepend('<input type="hidden" name="accessToken" value="'+accessToken+'">');
 			} else {
 			  // prompt a user to login
 			  FB.login(function(response) {
