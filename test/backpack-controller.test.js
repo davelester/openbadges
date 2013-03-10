@@ -35,7 +35,6 @@ test('backpack#manage', function (t) {
   t.end();
 });
 
-<<<<<<< HEAD
 test('backpack#settings redirects to login if no user', function (t) {
   conmock({handler: backpack.settings()}, function(err, mock) {
     t.same(mock.status, 303);
@@ -93,7 +92,7 @@ test('backpack#settings works', function (t) {
     });
     t.end();
   });
-=======
+
 test('backpack#facebookSharing', function (t) {
   conmock({
 	  handler: backpack.facebookSharing,
@@ -111,7 +110,6 @@ test('backpack#facebookSharing', function (t) {
     t.equal(mock.status, 303);
     t.end();
 	});
->>>>>>> Initial addition of facebookSharing to the backpack controller tests.
 });
 
 testUtils.finish(test);
