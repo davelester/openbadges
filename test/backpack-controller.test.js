@@ -148,6 +148,7 @@ $.prepareDatabase({
 
     $.finish(test);
   });
+});
 
 test('backpack#facebookSharing', function (t) {
   conmock({
@@ -158,7 +159,7 @@ test('backpack#facebookSharing', function (t) {
 	      badgeBodyHash: 'sillybadgehash',
 	      userId: 'me',
 	      comment: 'Commenting on my badge so others know how awesome I am!',
-	      fbAutomaticPush: 'checked'
+	      facebookAutomaticPush: 'checked'
 		  }
 		}
   }, function (err, mock, req) {
