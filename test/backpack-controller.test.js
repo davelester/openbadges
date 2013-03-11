@@ -81,6 +81,7 @@ $.prepareDatabase({
       })
     });
   });
+});
 
   test('backpack#manage', function (t) {
     // #TODO: re-write after making backpack.manage sane.
