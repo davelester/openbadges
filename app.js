@@ -166,7 +166,7 @@ app.delete('/group/:groupId', group.destroy);
 app.get('/images/badge/:badgeHash.png', badge.image);
 
 app.post('/share/badge/:badgeId', badge.share);
-app.get('/share/badge/:badgeUrl', badge.show);
+app.get('/share/badge/:badgeHash', badge.show);
 
 app.get('/share/:groupUrl/edit', share.editor);
 app.post('/share/:groupUrl', share.createOrUpdate);
