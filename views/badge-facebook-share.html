@@ -15,7 +15,7 @@
         <input type="hidden" name="_csrf" value="{{ csrfToken }}"></input>
         <input type="hidden" name="badgeBodyHash" value="{{badge.attributes.body_hash}}"></input>
         <strong>{{badge.attributes.body.badge.issuer.name}}</strong><br />
-        {{badge.attributes.body.badge.description|escape}}
+        <p>{{badge.attributes.body.badge.description|escape}}</p>
         <textarea name='facebookComment' tabindex=1 class='comment' placeholder='Add your personal comment'></textarea>
         <span class="auto_push"><input type="checkbox" name="facebookAutomaticPush" value="facebookAutomaticPush">Automatically publish badges to Facebook when they are added to my backpack.</span></td>
       </td>
