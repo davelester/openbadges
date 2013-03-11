@@ -428,6 +428,8 @@ exports.facebookSharing = function (request, response, callback) {
 	var comment = request.body.facebookComment;
 	var fbAutomaticPush = request.body.facebookAutomaticPush;
 	var user = request.user;
+	var appId = configuration.get('facebook').app_id;
+	var appSecret = configuration.get('facebook').app_secret;
 
   fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
   	if (error) {
@@ -447,7 +449,7 @@ exports.facebookSharing = function (request, response, callback) {
       // if FB automatic push was checked:
       if (fbAutomaticPush) {
 	      // Extend user's token
-	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, accessToken, function(error, response) {
+	      fb.extendUserAccessToken(appId, appSecret, accessToken, function(error, response) {
 		      // And save the extended token to the database
 				  user.set('fb_access_token', response);
 				  user.save();
