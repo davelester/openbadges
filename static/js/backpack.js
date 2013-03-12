@@ -363,6 +363,11 @@ Details.View = Backbone.View.extend({
 				  if (response.status === 'not_connected') {
 			      request.flash('error', 'Your login failed, and unsuccessfully connected your Open Badges account to Facebook.');
 				  }
+                                  if (response.status === 'connected') {
+                                    modal.$el.find('.confirm-facebook-share').fadeIn('fast');
+                                    // do some magic to append the user's auth token to the form
+                                     $('form.facebook-share').prepend('<input type="hidden" name="accessToken" value="'+response.authResponse.accessToken+'">');
+                                  }
 				}, {scope: 'publish_actions'});
 		  }
 		}, true);
