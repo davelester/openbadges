@@ -576,6 +576,51 @@ exports.facebookSharing = function (request, response, callback) {
   response.redirect('/share/badge/'+badgeBodyHash, 303);
 }
 
+exports.facebookSharing = function (request, response, callback) {
+  // check that Facebook app has been configured
+  if (configuration.get('facebook').activated == false) {
+    request.flash('error', 'Your backpack has not been configured to activate Facebook sharing.');
+  }
+
+  var accessToken = request.body.accessToken;
+	var badgeBodyHash = request.body.badgeBodyHash;
+	var userId = 'me';
+	var comment = request.body.facebookComment;
+	var fbAutomaticPush = request.body.facebookAutomaticPush;
+	var user = request.user;
+	var appId = configuration.get('facebook').app_id;
+	var appSecret = configuration.get('facebook').app_secret;
+
+  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
+  	if (error) {
+      request.flash('error', 'There was an error sharing your badge on Facebook.');
+   	} else {
+		  request.flash('success', 'Your badge was successfully shared on Facebook');
+
+	    // if a comment was posted, submit the comment
+      if (comment) {
+			  fb.publishComment(response, accessToken, comment, function(error, response) {
+			    if (error) {
+		        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
+    	    }
+			  });
+      }
+
+      // if FB automatic push was checked:
+      if (fbAutomaticPush) {
+	      // Extend user's token
+	      fb.extendUserAccessToken(appId, appSecret, accessToken, function(error, response) {
+		      // And save the extended token to the database
+				  user.set('fb_access_token', response);
+				  user.save();
+	      });
+      }
+    }
+  });
+
+  response.redirect('/share/badge/'+badgeBodyHash, 303);
+}
+
 /**
  * Stub methods to prevent crash in Express 3.0.5
  */
