@@ -81,31 +81,13 @@ $.prepareDatabase({
       })
     });
   });
-});
 
-test('backpack#facebookSharing', function (t) {
-  conmock({
-	  handler: backpack.facebookSharing,
-	  request: {
-		  body: {
-			  accessToken: 'aaBBccDDeFgHiJkLMnOP',
-	      badgeBodyHash: 'sillybadgehash',
-	      userId: 'me',
-	      comment: 'Commenting on my badge so others know how awesome I am!',
-	      facebookAutomaticPush: 'checked'
-		  }
-		}
-  }, function (err, mock, req) {
-    if (err) throw err;
-    t.equal(mock.status, 303);
-    t.end();
-	});
-});
 
   test('backpack#manage', function (t) {
     // #TODO: re-write after making backpack.manage sane.
     t.end();
   });
+
 
   test('backpack#settings redirects to login if no user', function (t) {
     conmock({handler: backpack.settings()}, function(err, mock) {
@@ -164,62 +146,26 @@ test('backpack#facebookSharing', function (t) {
       });
       t.end();
     });
+
+    $.finish(test);
   });
-});
 
-test('backpack#facebookSharing', function (t) {
-  conmock({
-	  handler: backpack.facebookSharing,
-	  request: {
-		  body: {
-			  accessToken: 'aaBBccDDeFgHiJkLMnOP',
-	      badgeBodyHash: 'sillybadgehash',
-	      userId: 'me',
-	      comment: 'Commenting on my badge so others know how awesome I am!',
-	      facebookAutomaticPush: 'checked'
-		  }
-		}
-  }, function (err, mock, req) {
-    if (err) throw err;
-    t.equal(mock.status, 303);
-    t.end();
-	});
-});
-
-test('backpack#facebookSharing', function (t) {
-  conmock({
-	  handler: backpack.facebookSharing,
-	  request: {
-		  body: {
-			  accessToken: 'aaBBccDDeFgHiJkLMnOP',
-	      badgeBodyHash: 'sillybadgehash',
-	      userId: 'me',
-	      comment: 'Commenting on my badge so others know how awesome I am!',
-	      facebookAutomaticPush: 'checked'
-		  }
-		}
-  }, function (err, mock, req) {
-    if (err) throw err;
-    t.equal(mock.status, 303);
-    t.end();
-	});
-});
-
-test('backpack#facebookSharing', function (t) {
-  conmock({
-	  handler: backpack.facebookSharing,
-	  request: {
-		  body: {
-			  accessToken: 'aaBBccDDeFgHiJkLMnOP',
-	      badgeBodyHash: 'sillybadgehash',
-	      userId: 'me',
-	      comment: 'Commenting on my badge so others know how awesome I am!',
-	      fbAutomaticPush: 'checked'
-		  }
-		}
-  }, function (err, mock, req) {
-    if (err) throw err;
-    t.equal(mock.status, 303);
-    t.end();
+	test('backpack#facebookSharing', function (t) {
+	  conmock({
+		  handler: backpack.facebookSharing,
+		  request: {
+			  body: {
+				  accessToken: 'aaBBccDDeFgHiJkLMnOP',
+		      badgeBodyHash: 'sillybadgehash',
+		      userId: 'me',
+		      comment: 'Commenting on my badge so others know how awesome I am!',
+		      facebookAutomaticPush: 'checked'
+			  }
+			}
+	  }, function (err, mock, req) {
+	    if (err) throw err;
+	    t.equal(mock.status, 303);
+	    t.end();
+		});
 	});
 });
