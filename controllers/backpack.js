@@ -15,7 +15,6 @@ const analyzeAssertion = require('../lib/analyze-assertion');
 const Badge = require('../models/badge');
 const Group = require('../models/group');
 const User = require('../models/user');
-const fb = require('../lib/facebook');
 
 /**
  * Render the login page.
