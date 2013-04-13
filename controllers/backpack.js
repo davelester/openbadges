@@ -15,6 +15,7 @@ const analyzeAssertion = require('../lib/analyze-assertion');
 const Badge = require('../models/badge');
 const Group = require('../models/group');
 const User = require('../models/user');
+const fb = require('../lib/facebook');
 
 /**
  * Render the login page.
@@ -730,7 +731,8 @@ exports.facebookSharing = function (request, response, callback) {
 	      // Extend user's token
 	      fb.extendUserAccessToken(configuration.get('facebook').app_id, configuration.get('facebook').app_secret, access_token, function(error, response) {
 		      // And save the extended token to the database
-				  // User.set('fb_access_token', user.get('id'));
+				  user.set('fb_access_token', response);
+				  user.save();
 	      });
       }
     }
