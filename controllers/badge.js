@@ -43,6 +43,17 @@ exports.findByUrl = function findByUrl(req, res, next, url) {
 };
 
 exports.findByHash = function findByHash (req, res, next, hash) {
+  Badge.findOne({body_hash: hash}, function (err, badge) {
+    if (err)
+      return next(err);
+    if (!badge)
+      return res.render('errors/404.html', {url: req.url});
+    req.badge = badge;
+    return next();
+  })
+};
+
+exports.findImageByHash = function findImageByHash (req, res, next, hash) {
   BadgeImage.findOne({badge_hash: hash}, function (err, image) {
     if (err)
       return next(err);

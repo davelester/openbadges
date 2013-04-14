@@ -107,6 +107,7 @@ app.param('groupId', group.findById);
 app.param('groupUrl', share.findGroupByUrl);
 app.param('badgeUrl', badge.findByUrl);
 app.param('badgeHash', badge.findByHash);
+app.param('badgeImageHash', badge.findImageByHash);
 
 app.get('/baker', baker.baker);
 app.get('/issuer.js', issuer.generateScript);
@@ -148,7 +149,7 @@ app.post('/group', group.create);
 app.put('/group/:groupId', group.update);
 app.delete('/group/:groupId', group.destroy);
 
-app.get('/images/badge/:badgeHash.png', badge.image);
+app.get('/images/badge/:badgeImageHash.png', badge.image);
 
 app.post('/share/badge/:badgeId', badge.share);
 app.get('/share/badge/:badgeHash', badge.show);
