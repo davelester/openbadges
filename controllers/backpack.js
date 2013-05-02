@@ -451,9 +451,11 @@ exports.facebookSharing = function (request, response, callback) {
 				    if (error) {
 			        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
 			        callback('There was an error posting a Facebook comment to your shared badge.', null);
-	    	    }
-				  });
-				}
+            } else {
+              callback(null, response);
+            }
+          });
+        }
       },
       function(callback){
         // if FB automatic push was checked:
