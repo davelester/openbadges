@@ -431,7 +431,7 @@ exports.facebookSharing = function (request, response, callback) {
 	var appId = configuration.get('facebook').app_id;
 	var appSecret = configuration.get('facebook').app_secret;
 
-	async.series([
+	async.waterfall([
 	    function(callback){
 	      // Try publishing a badge
 	  	  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, badgeResponse) {
@@ -444,15 +444,13 @@ exports.facebookSharing = function (request, response, callback) {
           }
         });
       },
-      function(callback){
+      function(badgeResponse, callback){
         // if a comment was posted, submit the comment
 	      if (comment) {
 				  fb.publishComment(badgeResponse, accessToken, comment, function(error, response) {
 				    if (error) {
 			        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
 			        callback('There was an error posting a Facebook comment to your shared badge.', null);
-            } else {
-              callback(null, response);
             }
           });
         }
