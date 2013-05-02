@@ -431,32 +431,44 @@ exports.facebookSharing = function (request, response, callback) {
 	var appId = configuration.get('facebook').app_id;
 	var appSecret = configuration.get('facebook').app_secret;
 
-  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
-  	if (error) {
-      request.flash('error', 'There was an error sharing your badge on Facebook.');
-   	} else {
-		  request.flash('success', 'Your badge was successfully shared on Facebook');
-
-	    // if a comment was posted, submit the comment
-      if (comment) {
-			  fb.publishComment(response, accessToken, comment, function(error, response) {
-			    if (error) {
-		        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
-    	    }
-			  });
+	async.series([
+	    function(callback){
+	      // Try publishing a badge
+	  	  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
+			  	if (error) {
+			      request.flash('error', 'There was an error sharing your badge on Facebook.');
+			      callback('There was an error sharing your badge on Facebook.', null);
+			   	} else {
+					  request.flash('success', 'Your badge was successfully shared on Facebook');
+					  callback(null, response);
+          }
+        }
+      },
+      function(callback){
+        // if a comment was posted, submit the comment
+	      if (comment) {
+				  fb.publishComment(callback, accessToken, comment, function(error, response) {
+				    if (error) {
+			        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
+			        callback('There was an error posting a Facebook comment to your shared badge.', null);
+	    	    }
+				  });
+				}
+      },
+      function(callback){
+        // if FB automatic push was checked:
+	      if (fbAutomaticPush) {
+		      // Extend user's token
+		      fb.extendUserAccessToken(appId, appSecret, accessToken, function(error, response) {
+			      // And save the extended token to the database
+					  user.set('fb_access_token', response);
+					  user.save();
+		      });
+	      }
       }
-
-      // if FB automatic push was checked:
-      if (fbAutomaticPush) {
-	      // Extend user's token
-	      fb.extendUserAccessToken(appId, appSecret, accessToken, function(error, response) {
-		      // And save the extended token to the database
-				  user.set('fb_access_token', response);
-				  user.save();
-	      });
-      }
-    }
-  });
+	],
+	// optional callback
+	function(err, results){});
 
   response.redirect('/share/badge/'+badgeBodyHash, 303);
 }
