@@ -442,7 +442,7 @@ exports.facebookSharing = function (request, response, callback) {
 					  request.flash('success', 'Your badge was successfully shared on Facebook');
 					  callback(null, response);
           }
-        }
+        });
       },
       function(callback){
         // if a comment was posted, submit the comment
