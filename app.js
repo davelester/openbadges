@@ -24,6 +24,7 @@ app.config = configuration;
 app.locals({
   error: [],
   success: [],
+  facebookAppId: configuration.get('facebook').app_id,
 });
 
 app.set('useCompiledTemplates', configuration.get('nunjucks_precompiled'));

@@ -58,7 +58,7 @@ var SocialMedia = function() {};
 
 window.fbAsyncInit = function() {
 	FB.init({
-		appId      : '268806889891263',
+		appId      : facebookAppId,
 		status     : true,
 		cookie     : true,
 		xfbml      : true 
