@@ -440,7 +440,7 @@ exports.facebookSharing = function (request, response, callback) {
 			      callback('There was an error sharing your badge on Facebook.', null);
 			   	} else {
 					  request.flash('success', 'Your badge was successfully shared on Facebook');
-					  callback(null, response);
+					  callback(null, badgeResponse);
           }
         });
       },
