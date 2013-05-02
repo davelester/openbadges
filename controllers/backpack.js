@@ -434,7 +434,7 @@ exports.facebookSharing = function (request, response, callback) {
 	async.series([
 	    function(callback){
 	      // Try publishing a badge
-	  	  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, response) {
+	  	  fb.publishBadge(accessToken, badgeBodyHash, userId, function(error, badgeResponse) {
 			  	if (error) {
 			      request.flash('error', 'There was an error sharing your badge on Facebook.');
 			      callback('There was an error sharing your badge on Facebook.', null);
@@ -447,7 +447,7 @@ exports.facebookSharing = function (request, response, callback) {
       function(callback){
         // if a comment was posted, submit the comment
 	      if (comment) {
-				  fb.publishComment(callback, accessToken, comment, function(error, response) {
+				  fb.publishComment(badgeResponse, accessToken, comment, function(error, response) {
 				    if (error) {
 			        request.flash('error', 'There was an error posting a Facebook comment to your shared badge.');
 			        callback('There was an error posting a Facebook comment to your shared badge.', null);
